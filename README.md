@@ -17,7 +17,7 @@ MINI_PROJECT/
 ├── pinecone_store.py           # 카드 데이터를 Pinecone 벡터 데이터베이스에 저장하는 스크립트
 ├── README.md                   # 이 문서 파일
 ├── requirements.txt            # 프로젝트에 필요한 Python 패키지
-
+```
 
 ## 요구 사항
 

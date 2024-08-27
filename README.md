@@ -43,7 +43,8 @@ HUGGINGFACEHUB_API_TOKEN=your_huggingfacehub_api_token
 
 ### 2. 카드 데이터 크롤링
 
-`card_crawler.py` 스크립트를 사용하여 대상 웹사이트에서 카드 정보를 크롤링합니다. 이 스크립트는 데이터를 추출하여 각 카드사마다 별도의 JSON 파일로 저장합니다.
+`card_crawler.py` 스크립트를 사용하여 대상 웹사이트에서 카드 정보를 크롤링합니다.
+이 스크립트는 데이터를 추출하여 각 카드사마다 별도의 JSON 파일로 저장합니다.
 
 ```bash
 python card_crawler.py
@@ -57,7 +58,8 @@ python card_crawler.py
 
 ### 4. Pinecone에 데이터 저장
 
-`pinecone_store.py` 스크립트를 사용하여 통합된 JSON 데이터를 Pinecone 벡터 데이터베이스에 업로드합니다. 각 카드의 혜택이 Hugging Face 임베딩으로 벡터화되어 Pinecone에 저장됩니다.
+`pinecone_store.py` 스크립트를 사용하여 통합된 JSON 데이터를 Pinecone 벡터 데이터베이스에 업로드합니다. 
+각 카드의 혜택이 Hugging Face 임베딩으로 벡터화되어 Pinecone에 저장됩니다.
 
 ```bash
 python pinecone_store.py
@@ -67,7 +69,8 @@ python pinecone_store.py
 
 ### 5. Streamlit 챗봇 앱 실행
 
-마지막으로, `chatbot_app.py`를 사용하여 챗봇 인터페이스를 실행합니다. 이 앱을 통해 사용자는 카드 혜택에 대해 질문할 수 있으며, Pinecone 데이터베이스에서 관련 정보를 실시간으로 검색하여 답변을 제공합니다.
+마지막으로, `chatbot_app.py`를 사용하여 챗봇 인터페이스를 실행합니다. 
+이 앱을 통해 사용자는 카드 혜택에 대해 질문할 수 있으며, Pinecone 데이터베이스에서 관련 정보를 실시간으로 검색하여 답변을 제공합니다.
 
 ```bash
 streamlit run chatbot_app.py
@@ -79,15 +82,20 @@ Streamlit 앱은 브라우저에서 `http://localhost:8502`에서 확인할 수 
 
 ### `card_crawler.py`
 
-이 스크립트는 Selenium을 사용하여 특정 웹사이트에서 카드 혜택 데이터를 크롤링합니다. 데이터는 JSON 형식으로 저장되며, 카드사마다 별도의 파일에 저장됩니다. 크롤링 후, 개별 JSON 파일을 하나의 `combined_card_info.json` 파일로 통합합니다.
+이 스크립트는 Selenium을 사용하여 특정 웹사이트에서 카드 혜택 데이터를 크롤링합니다. 
+데이터는 JSON 형식으로 저장되며, 카드사마다 별도의 파일에 저장됩니다. 
+크롤링 후, 개별 JSON 파일을 하나의 `combined_card_info.json` 파일로 통합합니다.
 
 ### `pinecone_store.py`
 
-이 스크립트는 `combined_card_info.json`에서 카드 데이터를 로드한 후 Pinecone에 업로드합니다. 데이터는 Hugging Face 임베딩을 사용해 벡터화된 후 Pinecone에 저장됩니다. 이렇게 저장된 데이터는 챗봇과의 상호작용 시 효율적으로 검색됩니다.
+이 스크립트는 `combined_card_info.json`에서 카드 데이터를 로드한 후 Pinecone에 업로드합니다. 
+데이터는 Hugging Face 임베딩을 사용해 벡터화된 후 Pinecone에 저장됩니다. 
+이렇게 저장된 데이터는 챗봇과의 상호작용 시 효율적으로 검색됩니다.
 
 ### `chatbot_app.py`
 
-이 Streamlit 앱은 카드 혜택에 관한 질문에 답변하는 챗봇 인터페이스를 제공합니다. 이 앱은 Pinecone 데이터베이스를 쿼리하여 관련 정보를 찾아 실시간으로 답변을 제공합니다.
+이 Streamlit 앱은 카드 혜택에 관한 질문에 답변하는 챗봇 인터페이스를 제공합니다. 
+이 앱은 Pinecone 데이터베이스를 쿼리하여 관련 정보를 찾아 실시간으로 답변을 제공합니다.
 
 ## 사용 예시
 
@@ -102,12 +110,9 @@ Streamlit 앱은 브라우저에서 `http://localhost:8502`에서 확인할 수 
 
 ## 기여 방법
 
-이 프로젝트에 기여하고 싶다면, 리포지토리를 포크하고 풀 리퀘스트를 생성하세요. 버그 또는 기능 요청에 대한 이슈를 열어도 좋습니다.
+이 프로젝트에 기여하고 싶다면, 리포지토리를 포크하고 풀 리퀘스트를 생성하세요. 
+버그 또는 기능 요청에 대한 이슈를 열어도 좋습니다.
 
 ## 라이선스
 
 이 프로젝트는 MIT 라이선스에 따라 라이선스가 부여됩니다. 자세한 내용은 `LICENSE` 파일을 참조하세요.
-```
-
-이제 이 내용을 복사하여 `README.md` 파일로 사용할 수 있습니다. 😊
-```

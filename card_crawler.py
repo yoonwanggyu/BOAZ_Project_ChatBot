@@ -38,7 +38,7 @@ def handle_ad():
         time.sleep(3)  # 광고가 사라질 때까지 잠시 대기
 
 # 전체 카드사 URL에 대해 반복문을 수행
-for card_number in range(10):  # 1번부터 10번까지 카드사에 대해 반복(조정할 것)
+for card_number in range(11):  # 1번부터 10번까지 카드사에 대해 반복(조정할 것)
     url = f'https://card-gorilla.com/team/detail/{card_number}'
     driver.get(url)
     time.sleep(4)

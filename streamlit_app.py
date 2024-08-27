@@ -56,4 +56,5 @@ if prompt:
             st.write("### 참조된 문서들:")
             st.write(result)
 
-    st.session_state['messages'].append({"role": "assistant", "content": full_response})
+        # 디버그 모드에서도 대화가 기록되도록 메시지 추가
+        st.session_state['messages'].append({"role": "assistant", "content": full_response})

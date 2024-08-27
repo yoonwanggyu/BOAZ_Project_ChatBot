@@ -15,6 +15,7 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.runnables import RunnableLambda
 from langchain_community.document_transformers import LongContextReorder
+from langchain_pinecone import PineconeVectorStore
 
 from operator import itemgetter
 
@@ -25,8 +26,23 @@ load_dotenv()
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-# 임베딩 모델 차원 확인 (예: BAAI/bge-m3는 1024차원)
-EMBEDDING_DIMENSION = 1024  # 모델에 맞게 차원 설정
+# Pinecone 설정
+def initialize_pinecone():
+    pc = Pinecone(api_key=PINECONE_API_KEY)
+    index_name = "card-chatbot"
+
+    # 인덱스 가져오기
+    index = pc.Index(index_name)
+
+    # HuggingFace 임베딩 로드
+    embeddings = HuggingFaceEmbeddings(
+        model_name="BAAI/bge-m3",
+        model_kwargs={'device': 'cpu'}
+    )
+
+    # Pinecone VectorStore 생성
+    vectorstore = PineconeVectorStore(index=index, embedding=embeddings, text_key="page_content")
+    return vectorstore
 
 def load_model():
     model = ChatOpenAI(

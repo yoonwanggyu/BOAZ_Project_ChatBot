@@ -1,3 +1,4 @@
+# requirements.txt
 selenium==4.10.0
 python-dotenv==1.0.0
 streamlit==1.26.0
@@ -5,4 +6,4 @@ pinecone-client==2.2.1
 tqdm==4.65.0
 uuid==1.30
 langchain==0.0.9
-Pillow==9.4.0  # Downgraded to avoid build issues
+Pillow==10.0.0  # 최신 안정 버전으로 변경

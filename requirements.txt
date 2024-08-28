@@ -6,4 +6,4 @@ pinecone-client==2.2.1
 tqdm==4.65.0
 uuid==1.30
 langchain==0.0.9
-Pillow==10.0.0  # 최신 안정 버전으로 변경
+Pillow==9.3.0

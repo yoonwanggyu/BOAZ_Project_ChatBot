@@ -1,28 +1,28 @@
 # Basic dependencies
-python-dotenv==1.0.0
-streamlit
-tqdm==4.65.0
-uuid==1.30
+python-dotenv>=1.0.0  # 환경 변수 로드
+streamlit>=1.18.0  # 안정적인 Streamlit 버전 사용
+tqdm>=4.65.0  # 프로그레스 바 라이브러리
+uuid>=1.30  # 고유 식별자 생성
 
 # Pinecone client
-pinecone-client
+pinecone-client>=0.1.0  # Pinecone 클라이언트 최신 버전
 
 # Langchain and related libraries
-langchain
-langchain-openai
-langchain-huggingface
-langchain-core
-langchain-community
-langchain-pinecone
+langchain>=0.0.185  # LangChain 라이브러리
+langchain-openai>=0.0.1  # LangChain OpenAI 모듈
+langchain-huggingface>=0.0.1  # LangChain HuggingFace 모듈
+langchain-core>=0.0.1  # LangChain Core 모듈
+langchain-community>=0.0.1  # LangChain 커뮤니티 모듈
+langchain-pinecone>=0.0.1  # LangChain Pinecone 모듈
 
 # HuggingFace dependencies
-transformers
-torch
-sentence-transformers
+transformers>=4.28.0  # 최신 버전의 Transformers
+torch>=1.13.0  # PyTorch 라이브러리
+sentence-transformers>=2.2.2  # 최신 버전의 Sentence Transformers
 
 # OpenAI API
-openai
+openai>=0.27.0  # OpenAI API 클라이언트
 
-# Additional dependencies (if necessary)
-requests
-pydantic<2.0
+# Additional dependencies
+requests>=2.26.0  # HTTP 요청을 위한 라이브러리
+pydantic<2.0  # 데이터 유효성 검사 및 설정 관리

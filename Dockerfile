@@ -3,7 +3,7 @@ FROM python:3.9
 WORKDIR /app
 
 # 환경 변수 파일을 컨테이너로 복사
-COPY .env .env
+#COPY .env .env
 
 # 필요한 패키지 설치
 COPY requirements.txt ./

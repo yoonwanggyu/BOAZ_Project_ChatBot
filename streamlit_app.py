@@ -12,6 +12,7 @@ PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 # streamlit 설정
 st.set_page_config(page_title="FinanceChat", page_icon=":books:", layout="centered")
 st.title("💳 **Card Chatbot**")
+st.divider()
 
 # 사이드바에 디버그 모드 설정 추가
 st.sidebar.title("Settings")
@@ -30,12 +31,31 @@ if 'conversation' not in st.session_state:
     st.session_state.conversation = initialize_conversation(st.session_state.vectorstore)
 
 # 이전 대화 기록 표시
-st.subheader("💬 대화 기록")
 chat_container = st.container()
 with chat_container:
     for message in st.session_state['messages']:
-        role = "🙋 User" if message['role'] == "user" else "🤖 Assistant"
-        st.markdown(f"**{role}:** {message['content']}")
+        if message['role'] == "user":
+            st.markdown(
+                f"""
+                <div style='display: flex; justify-content: flex-end;'>
+                    <div style='background-color: #FFEB3B; padding: 10px; border-radius: 10px; max-width: 60%; margin-bottom: 10px; color: black;'>
+                        <strong>🙋 User:</strong> {message['content']}
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+        else:
+            st.markdown(
+                f"""
+                <div style='display: flex; justify-content: flex-start;'>
+                    <div style='background-color: #FFFFFF; padding: 10px; border-radius: 10px; max-width: 60%; margin-bottom: 10px; border: 1px solid #E0E0E0; color: black;'>
+                        <strong>🤖 Assistant:</strong> {message['content']}
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
 
 # 사용자 입력 받기
 st.divider()
@@ -48,7 +68,16 @@ if prompt:
     st.session_state['messages'].append({"role": "user", "content": prompt})
 
     with chat_container:
-        st.markdown(f"**🙋 User:** {prompt}")
+        st.markdown(
+            f"""
+            <div style='display: flex; justify-content: flex-end;'>
+                <div style='background-color: #FFEB3B; padding: 10px; border-radius: 10px; max-width: 60%; margin-bottom: 10px; color: black;'>
+                    <strong>🙋 User:</strong> {prompt}
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     with chat_container:
         message_placeholder = st.empty()
@@ -62,7 +91,16 @@ if prompt:
 
         # LLM의 응답 추출
         full_response = result.get("answer", "Sorry, no answer was generated.")
-        message_placeholder.markdown(f"**🤖 Assistant:** {full_response}")
+        message_placeholder.markdown(
+            f"""
+            <div style='display: flex; justify-content: flex-start;'>
+                <div style='background-color: #FFFFFF; padding: 10px; border-radius: 10px; max-width: 60%; margin-bottom: 10px; border: 1px solid #E0E0E0; color: black;'>
+                    <strong>🤖 Assistant:</strong> {full_response}
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
         # 디버그 모드가 활성화된 경우 참조된 문서 표시
         if debug_mode:

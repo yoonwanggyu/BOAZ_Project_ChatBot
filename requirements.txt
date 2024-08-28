@@ -6,4 +6,4 @@ pinecone-client==2.2.1
 tqdm==4.65.0
 uuid==1.30
 langchain==0.0.9
-Pillow==9.3.0
+Pillow>=9.0.0

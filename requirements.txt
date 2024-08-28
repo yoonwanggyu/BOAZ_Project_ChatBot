@@ -5,4 +5,4 @@ pinecone-client==2.2.1
 tqdm==4.65.0
 uuid==1.30
 langchain==0.0.9
-Pillow==9.0.1  # 특정 버전 명시
+Pillow==9.5.0

@@ -1,7 +1,28 @@
-selenium==4.10.0
+# Basic dependencies
 python-dotenv==1.0.0
-streamlit==1.26.0
-pinecone-client==2.2.1
+streamlit
 tqdm==4.65.0
 uuid==1.30
-langchain==0.0.9
+
+# Pinecone client
+pinecone-client
+
+# Langchain and related libraries
+langchain
+langchain-openai
+langchain-huggingface
+langchain-core
+langchain-community
+langchain-pinecone
+
+# HuggingFace dependencies
+transformers
+torch
+sentence-transformers
+
+# OpenAI API
+openai
+
+# Additional dependencies (if necessary)
+requests
+pydantic<2.0

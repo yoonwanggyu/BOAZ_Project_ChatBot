@@ -7,7 +7,7 @@ from uuid import uuid4
 from pinecone import Pinecone, ServerlessSpec
 
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_openai import OpenAIEmbeddings
 from langchain_pinecone import PineconeVectorStore
 from langchain.schema import Document
 
@@ -16,9 +16,10 @@ load_dotenv()
 
 # 필요한 환경 변수 불러오기
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-# 임베딩 모델 차원 확인 (예: BAAI/bge-m3는 1024차원)
-EMBEDDING_DIMENSION = 1024  # 모델에 맞게 차원 설정
+# 임베딩 모델 차원 확인 (예: OpenAI의 'text-embedding-ada-002'는 1536차원)
+EMBEDDING_DIMENSION = 1536  # OpenAI 임베딩 모델 차원
 
 def load_documents(data_path):
     documents = []
@@ -46,10 +47,10 @@ def create_embeddings_and_db(documents):
                                                    length_function=len)
     split_docs = text_splitter.split_documents(documents)
 
-    # Hugging Face 임베딩 생성
-    embeddings = HuggingFaceEmbeddings(
-        model_name="BAAI/bge-m3",
-        model_kwargs={'device': 'cpu'}
+    # OpenAI 임베딩 생성
+    embeddings = OpenAIEmbeddings(
+        model="text-embedding-ada-002",  # OpenAI의 임베딩 모델 사용
+        api_key=OPENAI_API_KEY
     )
 
     # Pinecone 인스턴스 생성 및 초기화
@@ -60,7 +61,7 @@ def create_embeddings_and_db(documents):
     if index_name not in pc.list_indexes().names():
         pc.create_index(
             name=index_name, 
-            dimension=EMBEDDING_DIMENSION,  # 임베딩의 차원을 설정 (BAAI/bge-m3 임베딩의 차원)
+            dimension=EMBEDDING_DIMENSION,  # 임베딩의 차원을 설정 (OpenAI 임베딩의 차원)
             metric='cosine',
             spec=ServerlessSpec(cloud='aws', region='us-east-1')
         )

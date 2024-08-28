@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from pinecone import Pinecone
-from langchain_openai import ChatOpenAI
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.output_parsers import StrOutputParser
@@ -16,7 +16,6 @@ from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.runnables import RunnableLambda
 from langchain_community.document_transformers import LongContextReorder
 from langchain_pinecone import PineconeVectorStore
-
 from operator import itemgetter
 
 # .env 파일에서 환경 변수 로드
@@ -34,10 +33,10 @@ def initialize_pinecone():
     # 인덱스 가져오기
     index = pc.Index(index_name)
 
-    # HuggingFace 임베딩 로드
-    embeddings = HuggingFaceEmbeddings(
-        model_name="BAAI/bge-m3",
-        model_kwargs={'device': 'cpu'}
+    # OpenAI 임베딩 로드
+    embeddings = OpenAIEmbeddings(
+        model="text-embedding-ada-002",  # OpenAI의 임베딩 모델
+        api_key=OPENAI_API_KEY
     )
 
     # Pinecone VectorStore 생성
@@ -47,7 +46,8 @@ def initialize_pinecone():
 def load_model():
     model = ChatOpenAI(
         temperature=0.1,
-        model_name="gpt-4o-mini",
+        model_name="gpt-4o-mini", 
+        api_key=OPENAI_API_KEY,
         streaming=True
     )
     print("model loaded...")
@@ -57,13 +57,13 @@ def rag_chain(vectorstore):
     llm = load_model()
 
     # 리트리버 설정
-    model = HuggingFaceCrossEncoder(model_name="BAAI/bge-reranker-v2-m3")
-    compressor_15 = CrossEncoderReranker(model=model, top_n=15)
+    reranker_model = HuggingFaceCrossEncoder(model_name="BAAI/bge-reranker-v2-m3")
+    compressor_15 = CrossEncoderReranker(model=reranker_model, top_n=15)
     vs_retriever30 = vectorstore.as_retriever(search_kwargs={"k": 30})
     retriever = ContextualCompressionRetriever(base_compressor=compressor_15, base_retriever=vs_retriever30)
     
     # 리트리버 파이프라인
-    system_prompty = (
+    system_prompt = (
         "Given a chat history and the latest user question "
         "which might reference context in the chat history, "
         "formulate a standalone question which can be understood "
@@ -72,7 +72,7 @@ def rag_chain(vectorstore):
     )
 
     contextualize_prompt = ChatPromptTemplate.from_messages([
-        ("system", system_prompty),
+        ("system", system_prompt),
         MessagesPlaceholder("chat_history"),
         ("human", "{input}"),
     ])

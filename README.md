@@ -7,7 +7,9 @@
 ## 팀원
 | 이름          | GitHub 프로필                                             |
 | ------------- | --------------------------------------------------------- |
-| 김경민        | [@chulsoo](https://github.com/rudals6151)                |
+| 김경민        | [@rudals6151](https://github.com/rudals6151)              |
+| 김동환        | [@forwarder1121](https://github.com/forwarder1121)        |
+| 오영민        | [@oymin2001](https://github.com/oymin2001)                |
 
 
 ## 프로젝트 구조

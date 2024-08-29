@@ -126,35 +126,13 @@ def send_message():
         # 입력 필드 초기화
         st.session_state.pop('user_input', None)  # 직접적으로 세션 상태에서 키를 제거하여 초기화
 
-# 사용자 입력 필드와 전송 버튼
-col1, col2 = st.columns([6, 1], gap="small")
-with col1:
-    user_input = st.text_input(
-        "💬 질문을 입력해주세요:",
-        placeholder="카드 혜택을 알고 싶으신가요? 여기에 질문을 입력하세요...",
-        key="user_input"
-    )
-with col2:
-    st.markdown(
-        """
-        <style>
-        .custom-button {
-            width: 100%;
-            height: 38px;
-            background-color: #ff4b4b;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        </style>
-        """, unsafe_allow_html=True
-    )
-    submit_button = st.button("🔼", key="send_button")
-
-if submit_button or st.session_state.get('user_input') != "":
-    send_message()
+# 사용자 입력 필드 (엔터 키로 전송)
+user_input = st.text_input(
+    "💬 질문을 입력해주세요:",
+    placeholder="카드 혜택을 알고 싶으신가요? 여기에 질문을 입력하세요...",
+    key="user_input",
+    on_change=send_message  # 입력이 변경될 때마다 send_message 함수 호출
+)
 
 # 스타일 추가 (기본 스타일 유지, 심플하게)
 st.markdown(
@@ -174,9 +152,9 @@ st.markdown(
     .css-145kmo2.e1ewe7hr3 {
         margin-top: auto;
     }
-    .stTextInput, .stButton > button {
-        width: 100%;  /* 입력 필드와 버튼을 같은 너비로 설정 */
-        height: 38px; /* 버튼 높이를 텍스트 입력과 맞춤 */
+    .stTextInput {
+        width: 100%;
+        height: 38px;
         margin: 0;
         border-radius: 8px;
         align-items: center;

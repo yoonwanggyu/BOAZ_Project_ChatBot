@@ -7,6 +7,9 @@ from chatbot_logic import initialize_conversation, initialize_pinecone
 # .env 파일에서 환경 변수 로드
 load_dotenv()
 
+# 앱 로드 시 캐시 삭제
+st.cache_data.clear()
+
 # 필요한 환경 변수 불러오기
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 

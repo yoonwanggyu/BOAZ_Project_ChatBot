@@ -1,8 +1,9 @@
+![header](https://capsule-render.vercel.app/api?type=Waving&color=auto&height=300&fontAlignY=50&fontAlign=50&section=header&text=BOAZ%20Card-ChatBot%20Project&fontSize=50)
+<div align=center>
 
-# 카드 정보 챗봇 프로젝트
-
-이 프로젝트는 사용자가 챗봇 인터페이스를 통해 카드 혜택 정보를 자세히 제공받을 수 있도록 설계되었습니다.   
+이 프로젝트는 **사용자가 챗봇 인터페이스를 통해 카드 혜택 정보를 자세히 제공받을 수 있도록 설계되었습니다.**   
 프로젝트는 웹에서 수집한 카드 데이터를 벡터 데이터베이스(Pinecone)에 저장하고, 이를 활용하여 사용자 질문에 답변합니다.    
+</div>
 
 ## 수행 기간
 2024.08.08 ~ 2024.08.29
